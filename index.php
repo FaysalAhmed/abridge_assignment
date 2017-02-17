@@ -12,7 +12,7 @@ try {
     if (array_key_exists("r", $_GET)) {
         loadRoute($_GET["r"]);
     } else {
-        loadTemplate("login_template", "welcomePage");
+        loadTemplate("baseView", "threadlist");
     }
 } catch (Exception $e) {
     var_dump($e);

@@ -5,6 +5,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+function auth()
+{
+    loadTemplate("login_template", "welcomePage");
+}
+
 function register()
 {
     $db = connectDB();
@@ -60,7 +65,7 @@ function login()
         ));
     } else {
         session_start();
-        $_SESSION['userid']=$rows['id'];
+        $_SESSION['userid'] = $rows['id'];
         loadTemplate("baseView", "threadlist");
     }
 }
