@@ -12,7 +12,7 @@ try {
     if (array_key_exists("r", $_GET)) {
         loadRoute($_GET["r"]);
     } else {
-        loadTemplate("baseView", "threadlist");
+        loadRoute("threads/threadlist");
     }
 } catch (Exception $e) {
     var_dump($e);

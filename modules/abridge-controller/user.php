@@ -13,7 +13,7 @@ function auth()
 function register()
 {
     $db = connectDB();
-    $sql = "select count(*) from user where username=?";
+    $sql = "select count(*) from users where username=?";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(1, $_POST['reg_name'], PDO::PARAM_STR);
     $stmt->execute();
@@ -24,7 +24,7 @@ function register()
             "error" => "User exists already"
         ));
     } else {
-        $sql2 = "insert into user(username,password) values(:reg_name, :reg_pass)";
+        $sql2 = "insert into users(username,password) values(:reg_name, :reg_pass)";
         $stmt2 = $db->prepare($sql2);
         $stmt2->bindParam(':reg_name', $_POST['reg_name'], PDO::PARAM_STR);
         $pass = md5($_POST['reg_password']);
@@ -49,7 +49,7 @@ function login()
     $db = connectDB();
     
     var_dump($_POST);
-    $sql = "select * from user where username=?";
+    $sql = "select * from users where username=?";
     $stmt = $db->prepare($sql);
     // $stmt->bindParam(":username", $_GET['login_username'],PDO::PARAM_STR);
     $password = md5($_POST['login_password']);
