@@ -5,18 +5,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-include("db.php");
+include ("db.php");
 
-
-
-function loadTemplate($templateName, $viewName,$func_param = []) {
+function loadTemplate($templateName, $viewName, $func_param = [])
+{
     $view = $viewName;
     $params = $func_param;
-    include("./modules/abridge-template/" . $templateName . ".php");
+    include ("./modules/abridge-template/" . $templateName . ".php");
 }
 
-function loadRoute($route) {
+function loadRoute($route)
+{
     $explodeRoute = explode("/", $route);
-    include("./modules/abridge-controller/" . $explodeRoute[0] . ".php");
+    include ("./modules/abridge-controller/" . $explodeRoute[0] . ".php");
     $explodeRoute[1]();
 }

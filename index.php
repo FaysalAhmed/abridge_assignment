@@ -3,14 +3,19 @@
 /**
  * including base php which will have all necessary function
  */
-include("./modules/abridge-base/base.php");
+include ("./modules/abridge-base/base.php");
 /**
- * calling welcome page which is in abridge-views module. 
+ * calling welcome page which is in abridge-views module.
  * templates are in abridge-template module
  */
-if (array_key_exists("r", $_GET)) {
-    loadRoute($_GET["r"]);
-} else {
+try {
+    if (array_key_exists("r", $_GET)) {
+        loadRoute($_GET["r"]);
+    } else {
+        loadTemplate("login_template", "welcomePage");
+    }
+} catch (Exception $e) {
+    var_dump($e);
     loadTemplate("login_template", "welcomePage");
 }
 ?>
