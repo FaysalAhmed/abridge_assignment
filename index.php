@@ -16,7 +16,6 @@ try {
         loadRoute("threads/threadlist");
     }
 } catch (Exception $e) {
-    
-    loadTemplate("login_template", "welcomePage");
+    loadRoute("threads/threadlist");
 }
 ?>

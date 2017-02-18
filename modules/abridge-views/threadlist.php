@@ -3,21 +3,22 @@
     if (array_key_exists("error", $params)) {
         ?>
         <div class='row'>
-            <div class='col-xs-12'>
-                <h1>No Threads Found</h1>
+		<div class='col-xs-12'>
+			<h1>No Threads Found</h1>
                 <?php
-                if (array_key_exists('userid', $_SESSION)) {
-                    ?>
-                    <button>Create new Thread</button>
+        if (array_key_exists('userid', $_SESSION)) {
+            ?>
+                    <a href="?r=thread/create"><button>Create new Thread</button></a>
                     <?php
-                } else {
-                    ?>
-                    <a href='?r=user/auth'><button>Signin or Register to create new Thread</button></a>
+        } else {
+            ?>
+                    <a href='?r=user/auth'><button>Signin or Register to
+					create new Thread</button></a>
                     <?php
-                }
-                ?>
+        }
+        ?>
             </div>
-        </div>
+	</div>
         <?php
     } else {
         ?>
