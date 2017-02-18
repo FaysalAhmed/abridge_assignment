@@ -1,12 +1,30 @@
 <div class="row">
-	<div class="col-lg-12 text-center">
-		<h1>A Bootstrap Starter Template</h1>
-		<p class="lead">Complete with pre-defined file paths that you won't
-			have to change!!</p>
-		<ul class="list-unstyled">
-			<li>Bootstrap v3.3.7</li>
-			<li>jQuery v1.11.1</li>
-		</ul>
-	</div>
+    <?php
+    if (array_key_exists("error", $params)) {
+        ?>
+        <div class='row'>
+            <div class='col-xs-12'>
+                <h1>No Threads Found</h1>
+                <?php
+                if (array_key_exists('userid', $_SESSION)) {
+                    ?>
+                    <button>Create new Thread</button>
+                    <?php
+                } else {
+                    ?>
+                    <a href='?r=user/auth'><button>Signin or Register to create new Thread</button></a>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+        <?php
+    } else {
+        ?>
+        TODO: Show threads
+        <?php
+    }
+    ?>
+
 </div>
 <!-- /.row -->

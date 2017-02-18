@@ -5,8 +5,11 @@
         <group>
             <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/index.php</file>
             <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/modules/abridge-controller/user.php</file>
+            <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/modules/abridge-template/baseView.php</file>
+            <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/modules/abridge-views/threadlist.php</file>
             <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/modules/abridge-base/base.php</file>
             <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/modules/abridge-views/welcomePage.php</file>
+            <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/modules/abridge-controller/threads.php</file>
             <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/modules/abridge-base/db.php</file>
         </group>
     </open-files>

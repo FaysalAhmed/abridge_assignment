@@ -44,11 +44,16 @@ function register()
     }
 }
 
+function logout(){
+    unset($_SESSION['userid']);
+    loadRoute("threads/threadlist");
+}
+
 function login()
 {
     $db = connectDB();
     
-    var_dump($_POST);
+    
     $sql = "select * from users where username=?";
     $stmt = $db->prepare($sql);
     // $stmt->bindParam(":username", $_GET['login_username'],PDO::PARAM_STR);
@@ -58,14 +63,13 @@ function login()
     $stmt->bindValue(2, $password, PDO::PARAM_STR);
     $stmt->execute();
     $rows = $stmt->fetch(); // there will be one data per user
-    var_dump($rows);
+    
     if (! $rows) {
         loadTemplate("login_template", "welcomePage", array(
             "error" => "Username or password invalid"
         ));
     } else {
-        session_start();
         $_SESSION['userid'] = $rows['id'];
-        loadTemplate("baseView", "threadlist");
+        loadRoute("threads/threadlist");
     }
 }
