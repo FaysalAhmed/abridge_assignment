@@ -3,7 +3,7 @@
 function threadlist()
 {
     $db = connectDB();
-    $sql = "select * from threads";
+    $sql = "select threads.*,users.username from threads join users on users.id=threads.creator";
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $rows = $stmt->fetchAll();

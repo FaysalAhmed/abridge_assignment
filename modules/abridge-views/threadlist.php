@@ -1,63 +1,111 @@
 <div class='row'>
-<?php
-if (array_key_exists('error', $_SESSION)) {
-    ?>
-    <div class="alert alert-danger" role="alert"><?php echo $_SESSION['error']?></div>
     <?php
-    unset($_SESSION['error']);
-}
-?>
-<?php
+    if (array_key_exists('error', $_SESSION)) {
 
-if (array_key_exists('success', $_SESSION)) {
+        ?>
+        <div class="alert alert-danger" role="alert"><?php echo $_SESSION['error'] ?></div>
+        <?php
+        unset($_SESSION['error']);
+    }
+
     ?>
-    <div class="alert alert-success" role="alert"><?php echo $_SESSION['success']?></div>
     <?php
-    unset($_SESSION['success']);
-}
-?>
+    if (array_key_exists('success', $_SESSION)) {
+
+        ?>
+        <div class="alert alert-success" role="alert"><?php echo $_SESSION['success'] ?></div>
+        <?php
+        unset($_SESSION['success']);
+    }
+
+    ?>
 </div>
 <div class="row">
     <?php
     if (array_key_exists("error", $params)) {
+
         ?>
         <div class='row'>
-		<div class='col-xs-12'>
-			<h1>No Threads Found</h1>
-        <?php
-        if (array_key_exists('userid', $_SESSION)) {
-            ?>
-                        <a href="?r=threads/create"><button>Create new
-					Thread</button></a>
-                        <?php
-        } else {
-            ?>
-                        <a href='?r=user/auth'><button>Signin or
-					Register to create new Thread</button></a>
-                        <?php
-        }
-        ?>
+            <div class='col-xs-12'>
+                <h1>No Threads Found</h1>
+                <?php
+                if (array_key_exists('userid', $_SESSION)) {
+
+                    ?>
+                    <a href="?r=threads/create"><button>Create new Thread</button></a>
+                    <?php
+                } else {
+
+                    ?>
+                    <a href='?r=user/auth'><button>Signin or Register to create
+                            new Thread</button></a>
+                    <?php
+                }
+
+                ?>
+
             </div>
-	</div>
+
+        </div>
         <?php
     } else {
-        ?>
-       <?php
-        if (array_key_exists('userid', $_SESSION)) {
-            ?>
-                        <a href="?r=threads/create"><button>Create new
-			Thread</button></a>
-                        <?php
-        } else {
-            ?>
-                        <a href='?r=user/auth'><button>Signin or
-			Register to create new Thread</button></a>
-                        <?php
-        }
-        ?>
-        <?php
-    }
-    ?>
 
-</div>
-<!-- /.row -->
+        ?>
+        <div class="container">
+            <?php
+            if (array_key_exists('userid', $_SESSION)) {
+
+                ?>
+                <a href="?r=threads/create"><button>Create new Thread</button></a>
+                <?php
+            } else {
+
+                ?>
+                <a href='?r=user/auth'><button>Sign in or Register to create new Thread</button></a>
+                <?php
+            }
+
+            ?>
+            <br/><br/>
+            <?php foreach ($params['threads'] as $thread) { ?>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class='row'>
+                                <div class='col-xs-12'>
+                                    <h1><?php echo $thread['name'] ?></h1>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-xs-12'>
+                                    <?php echo $thread['text'] ?>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-xs-12'>
+                                    Created by  <?php echo $thread['username'] ?>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-xs-4'>
+                                    Created at <?php echo $thread['created_at'] ?>
+                                </div>
+                                <div class='col-xs-4'>
+                                    Updated at <?php echo $thread['updated_at'] ?>
+                                </div>
+                                <div class='col-xs-4'>
+                                    0 comments
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php
+        }
+
+        ?>
+
+    </div>
+    <!-- /.row -->
