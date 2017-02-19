@@ -7,7 +7,7 @@
  */
 include ("db.php");
 include 'config.php';
-
+date_default_timezone_set('Asia/Dhaka');
 function loadTemplate($templateName, $viewName, $func_param = [])
 {
     $view = $viewName;
