@@ -17,3 +17,8 @@ function threadlist()
         ));
     }
 }
+
+function create()
+{
+    loadTemplate("baseView", "createThread");
+}
