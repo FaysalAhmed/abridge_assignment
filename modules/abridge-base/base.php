@@ -6,6 +6,7 @@
  * and open the template in the editor.
  */
 include ("db.php");
+include 'config.php';
 
 function loadTemplate($templateName, $viewName, $func_param = [])
 {
@@ -19,4 +20,10 @@ function loadRoute($route)
     $explodeRoute = explode("/", $route);
     include ("./modules/abridge-controller/" . $explodeRoute[0] . ".php");
     $explodeRoute[1]();
+}
+
+function redirect_route($route)
+{
+    echo "redirect";
+    header("Location:".$base_url ."?r=". $route);
 }

@@ -46,7 +46,8 @@ function register()
 
 function logout(){
     unset($_SESSION['userid']);
-    loadRoute("threads/threadlist");
+    redirect_route("threads/threadlist");
+//     loadRoute("threads/threadlist");
 }
 
 function login()
@@ -70,6 +71,6 @@ function login()
         ));
     } else {
         $_SESSION['userid'] = $rows['id'];
-        loadRoute("threads/threadlist");
+        redirect_route("threads/threadlist");
     }
 }
