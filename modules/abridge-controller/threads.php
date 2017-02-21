@@ -29,11 +29,11 @@ function details() {
     $stmt->execute();
     $row = $stmt->fetch();
     if (count($row) > 0) {
-        $sql = "select * from comments  where thread_id=:id ";
+        $sql = "select *,comments.id as comment_id from comments join users on users.id = comments.commented_by where thread_id=:id ";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(":id", $_GET['thread_id']);
         $stmt->execute();
-        $comments = $stmt->fetch();
+        $comments = $stmt->fetchAll();
         if ($row['creator'] == $_SESSION['userid']) {
             loadTemplate("baseView", "threaddetails", ['thread' => $row, 'comments' => $comments]);
         } else {

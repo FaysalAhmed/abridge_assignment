@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/db.sql</file>
+            <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/modules/abridge-views/threaddetails.php</file>
+            <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/modules/abridge-controller/comments.php</file>
+            <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/modules/abridge-views/threadlist.php</file>
+            <file>file:/E:/Program%20Files%20(x86)/EasyPHP-Devserver-16.1/eds-www/projects/abridge/modules/abridge-controller/threads.php</file>
         </group>
     </open-files>
 </project-private>
