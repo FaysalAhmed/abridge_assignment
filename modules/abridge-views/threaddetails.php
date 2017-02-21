@@ -61,14 +61,14 @@ if (array_key_exists('thread', $params)) {
                     <div class="row">
                         <div class="col-xs-12">
                             <h4><?php
-                                if ($comment['commented_by'] == $_SESSION['userid']) {
+                                if (array_key_exists("userid", $_SESSION) && $comment['commented_by'] == $_SESSION['userid']) {
                                     echo "You";
                                 } else {
                                     echo $comment['username'];
                                 }
                                 ?>:</h4><br/> <?php echo $comment["text"]; ?>
                             <?php
-                            if ($comment['commented_by'] == $_SESSION['userid']) {
+                            if (array_key_exists("userid", $_SESSION) && $comment['commented_by'] == $_SESSION['userid']) {
                                 ?>
                                 <a href="?r=comments/deletecomment&id=<?php echo $comment['comment_id'] ?>&thread_id=<?php echo $thread['id'] ?>">Delete</a>
                                 <?php
@@ -83,19 +83,30 @@ if (array_key_exists('thread', $params)) {
             }
             ?>
         </div>
-        <form method='post' action='?r=comments/addcomment&thread_id=<?php echo $thread['id'] ?>'>
-            <input type='hidden' name='id' value='<?php echo ($thread == null) ? 0 : $thread['id'] ?>'/>
-            <div class='row'>
-                <div class='col-xs-12'>
-                    <h4>You:</h4><textarea class='form-control' id="editor1" name='comment'></textarea>
+        <?php
+        if (array_key_exists('userid', $_SESSION)) {
+            ?>
+            <form method='post' action='?r=comments/addcomment&thread_id=<?php echo $thread['id'] ?>'>
+                <input type='hidden' name='id' value='<?php echo ($thread == null) ? 0 : $thread['id'] ?>'/>
+                <div class='row'>
+                    <div class='col-xs-12'>
+                        <h4>You:</h4><textarea class='form-control' id="editor1" name='comment'></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class='row'>
-                <div class='col-xs-12'>
-                    <input type='submit' value="Comment"/>
+                <div class='row'>
+                    <div class='col-xs-12'>
+                        <input type='submit' value="Comment"/>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+            <?php
+        } else {
+            ?>
+            <a href='?r=user/auth'><button>Sign in or Register to create new Thread</button></a>
+            <?php
+        }
+        ?>
+
     </div>
 </div>
 <script>

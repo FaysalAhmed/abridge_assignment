@@ -2,11 +2,26 @@
 
 function threadlist() {
     $db = connectDB();
-    $sql = "select threads.*,users.username from threads join users on users.id=threads.creator";
-    $stmt = $db->prepare($sql);
-    $stmt->execute();
-    $rows = $stmt->fetchAll();
+    $stmt = null;
+    if (array_key_exists("search", $_GET)) {
+        $sql = "select threads.*,users.username from threads join users on users.id=threads.creator where name like :search or text like :search2 or users.username like :search3";
+        $stmt = $db->prepare($sql);
+        $searchText = "%" . $_GET['search'] . "%";
+
+        $stmt->bindValue(":search", $searchText);
+        $stmt->bindValue(":search2", $searchText);
+        $stmt->bindValue(":search3", $searchText);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+    } else {
+        $sql = "select threads.*,users.username from threads join users on users.id=threads.creator";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
+    }
+
     if (count($rows) > 0) {
+
         loadTemplate("baseView", "threadlist", array(
             'threads' => $rows
         ));
@@ -19,6 +34,19 @@ function threadlist() {
 
 function create() {
     loadTemplate("baseView", "createThread");
+}
+
+function search() {
+    
+}
+
+function delete() {
+    $db = connectDB();
+    $sql = "delete from threads where id=:id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(":id", $_GET['thread_id']);
+    $stmt->execute();
+    redirect_route('threads/threadlist');
 }
 
 function details() {
@@ -34,12 +62,7 @@ function details() {
         $stmt->bindParam(":id", $_GET['thread_id']);
         $stmt->execute();
         $comments = $stmt->fetchAll();
-        if ($row['creator'] == $_SESSION['userid']) {
-            loadTemplate("baseView", "threaddetails", ['thread' => $row, 'comments' => $comments]);
-        } else {
-            $_SESSION['error'] = "Not allowed to edit the thread";
-            redirect_route('threads/threadlist');
-        }
+        loadTemplate("baseView", "threaddetails", ['thread' => $row, 'comments' => $comments]);
     } else {
         $_SESSION['error'] = "No thread found";
         redirect_route('threads/threadlist');
@@ -98,5 +121,4 @@ function save() {
         }
         redirect_route('threads/threadlist');
     }
-    // var_dump($_POST);
 }

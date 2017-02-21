@@ -16,7 +16,6 @@ try {
         loadRoute("threads/threadlist");
     }
 } catch (Exception $e) {
-    var_dump($e);
     loadRoute("threads/threadlist");
 }
 ?>

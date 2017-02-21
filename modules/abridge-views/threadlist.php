@@ -16,6 +16,14 @@
     }
     ?>
 </div>
+<form method="get" action="?r=threads/threadlist">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <input type="submit" class="btn btn-default" type="button">Search</input>
+                    </span>
+                </div>
+            </form>
 <div class="row">
     <?php
     if (array_key_exists("error", $params)) {
@@ -55,6 +63,7 @@
             }
             ?>
             <br/><br/>
+            
             <?php foreach ($params['threads'] as $thread) { ?>
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -67,6 +76,7 @@
                                     <?php if (array_key_exists('userid', $_SESSION) && $thread['creator'] == $_SESSION['userid']) {
                                         ?>
                                         <a href="?r=threads/update&thread_id=<?php echo $thread['id'] ?>"><button>Edit</button></a>
+                                        <a href="?r=threads/delete&thread_id=<?php echo $thread['id'] ?>"><button>Delete</button></a>
                                     <?php }
                                     ?>
                                 </div>
@@ -89,7 +99,7 @@
                                     Updated at <?php echo $thread['updated_at'] ?>
                                 </div>
                                 <div class='col-xs-4'>
-                                    0 comments
+
                                 </div>
                             </div>
 
