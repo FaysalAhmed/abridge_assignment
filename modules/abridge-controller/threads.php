@@ -1,7 +1,6 @@
 <?php
 
-function threadlist()
-{
+function threadlist() {
     $db = connectDB();
     $sql = "select threads.*,users.username from threads join users on users.id=threads.creator";
     $stmt = $db->prepare($sql);
@@ -18,16 +17,66 @@ function threadlist()
     }
 }
 
-function create()
-{
+function create() {
     loadTemplate("baseView", "createThread");
 }
 
-function save()
-{
+function details() {
     $db = connectDB();
-    $sql = "insert into threads(name,creator,created_at,text) values(:name,:creator,:created_at,:text)";
+    $sql = "select threads.* from threads where threads.id=:id ";
     $stmt = $db->prepare($sql);
+    $stmt->bindParam(":id", $_GET['thread_id']);
+    $stmt->execute();
+    $row = $stmt->fetch();
+    if (count($row) > 0) {
+        $sql = "select * from comments  where thread_id=:id ";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(":id", $_GET['thread_id']);
+        $stmt->execute();
+        $comments = $stmt->fetch();
+        if ($row['creator'] == $_SESSION['userid']) {
+            loadTemplate("baseView", "threaddetails", ['thread' => $row, 'comments' => $comments]);
+        } else {
+            $_SESSION['error'] = "Not allowed to edit the thread";
+            redirect_route('threads/threadlist');
+        }
+    } else {
+        $_SESSION['error'] = "No thread found";
+        redirect_route('threads/threadlist');
+    }
+}
+
+function update() {
+    $db = connectDB();
+    $sql = "select * from threads where id=:id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(":id", $_GET['thread_id']);
+    $stmt->execute();
+    $row = $stmt->fetch();
+    if (count($row) > 0) {
+        if ($row['creator'] == $_SESSION['userid']) {
+            loadTemplate("baseView", "createThread", ['thread' => $row]);
+        } else {
+            $_SESSION['error'] = "Not allowed to edit the thread";
+            redirect_route('threads/threadlist');
+        }
+    } else {
+        $_SESSION['error'] = "No thread found";
+        redirect_route('threads/threadlist');
+    }
+}
+
+function save() {
+    $db = connectDB();
+    $stmt = null;
+    if ($_POST['id'] != 0) {
+        $sql = "update threads set name=:name,creator=:creator,created_at=:created_at,text=:text where id=:id";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(":id", $_POST['id']);
+    } else {
+        $sql = "insert into threads(name,creator,created_at,text) values(:name,:creator,:created_at,:text)";
+        $stmt = $db->prepare($sql);
+    }
     $stmt->bindParam(":name", $_POST['thread_name']);
     $stmt->bindParam(":creator", $_SESSION['userid']);
     $createdAt = date('Y-m-d G:i:s');
@@ -35,10 +84,18 @@ function save()
     $stmt->bindParam(":text", $_POST['thread_text']);
     $stmt->execute();
     if ($db->lastInsertId() > 0) {
-        $_SESSION['success'] = "Thread created";
+        if ($_POST['id'] != 0) {
+            $_SESSION['success'] = "Thread updated";
+        } else {
+            $_SESSION['success'] = "Thread created";
+        }
         redirect_route('threads/threadlist');
     } else {
-        $_SESSION['error'] = "Thread created";
+        if ($_POST['id'] != 0) {
+            $_SESSION['success'] = "Failed to update thread";
+        } else {
+            $_SESSION['error'] = "Failed to create thread";
+        }
         redirect_route('threads/threadlist');
     }
     // var_dump($_POST);

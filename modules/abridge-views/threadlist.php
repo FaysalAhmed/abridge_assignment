@@ -1,47 +1,39 @@
 <div class='row'>
     <?php
     if (array_key_exists('error', $_SESSION)) {
-
         ?>
         <div class="alert alert-danger" role="alert"><?php echo $_SESSION['error'] ?></div>
         <?php
         unset($_SESSION['error']);
     }
-
     ?>
     <?php
     if (array_key_exists('success', $_SESSION)) {
-
         ?>
         <div class="alert alert-success" role="alert"><?php echo $_SESSION['success'] ?></div>
         <?php
         unset($_SESSION['success']);
     }
-
     ?>
 </div>
 <div class="row">
     <?php
     if (array_key_exists("error", $params)) {
-
         ?>
         <div class='row'>
             <div class='col-xs-12'>
                 <h1>No Threads Found</h1>
                 <?php
                 if (array_key_exists('userid', $_SESSION)) {
-
                     ?>
                     <a href="?r=threads/create"><button>Create new Thread</button></a>
                     <?php
                 } else {
-
                     ?>
                     <a href='?r=user/auth'><button>Signin or Register to create
                             new Thread</button></a>
                     <?php
                 }
-
                 ?>
 
             </div>
@@ -49,22 +41,18 @@
         </div>
         <?php
     } else {
-
         ?>
         <div class="container">
             <?php
             if (array_key_exists('userid', $_SESSION)) {
-
                 ?>
                 <a href="?r=threads/create"><button>Create new Thread</button></a>
                 <?php
             } else {
-
                 ?>
                 <a href='?r=user/auth'><button>Sign in or Register to create new Thread</button></a>
                 <?php
             }
-
             ?>
             <br/><br/>
             <?php foreach ($params['threads'] as $thread) { ?>
@@ -72,8 +60,15 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class='row'>
-                                <div class='col-xs-12'>
-                                    <h1><?php echo $thread['name'] ?></h1>
+                                <div class='col-xs-10'>
+                                    <a href="?r=threads/details&thread_id=<?php echo $thread['id'] ?>"><h1><?php echo $thread['name'] ?></h1></a>
+                                </div>
+                                <div class="col-xs-2">
+                                    <?php if (array_key_exists('userid', $_SESSION) && $thread['creator'] == $_SESSION['userid']) {
+                                        ?>
+                                        <a href="?r=threads/update&thread_id=<?php echo $thread['id'] ?>"><button>Edit</button></a>
+                                    <?php }
+                                    ?>
                                 </div>
                             </div>
                             <div class='row'>
@@ -104,7 +99,6 @@
             <?php } ?>
             <?php
         }
-
         ?>
 
     </div>
